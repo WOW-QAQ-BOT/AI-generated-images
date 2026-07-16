@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+*.png
+!test_hires.png
+!examples/**/*.png
+models/anything-v5/**/*.safetensors
+models/anything-v5/**/*.bin
+desktop-tutorial/
