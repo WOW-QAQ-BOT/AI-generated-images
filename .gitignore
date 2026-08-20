@@ -1,0 +1,23 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Downloaded model weights are large and must stay local.
+models/
+lora_output/
+
+# Private/local training data and generated artifacts.
+train_data/
+Animedataset/
+outputs/
+history/
+logs/
+temp/
+
+# Keep only intentionally committed example images.
+*.png
+!test_hires.png
+!examples/**/*.png
+
+desktop-tutorial/

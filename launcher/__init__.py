@@ -1,0 +1,1 @@
+LAUNCHER_VERSION = "4.2"
