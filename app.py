@@ -251,7 +251,7 @@ def train_lora(train_data_dir, output_name, pretrained_model, max_steps, learnin
         return "请填写训练集路径和输出名称。"
     try:
         trainer.config = LoRATrainingConfig(
-            pretrained_model=str(pretrained_model).strip() or "runwayml/stable-diffusion-v1-5",
+            pretrained_model=str(pretrained_model).strip() or "models/anything-v5",
             max_train_steps=int(max_steps),
             learning_rate=float(learning_rate),
             rank=int(rank),
@@ -273,7 +273,7 @@ def train_lora(train_data_dir, output_name, pretrained_model, max_steps, learnin
 
 def preview_lora_command(train_data_dir, output_name, pretrained_model, max_steps, learning_rate, rank, resolution):
     trainer.config = LoRATrainingConfig(
-        pretrained_model=str(pretrained_model).strip() or "runwayml/stable-diffusion-v1-5",
+        pretrained_model=str(pretrained_model).strip() or "models/anything-v5",
         max_train_steps=int(max_steps),
         learning_rate=float(learning_rate),
         rank=int(rank),
@@ -466,10 +466,10 @@ def create_ui() -> gr.Blocks:
                     with gr.Column():
                         train_data_dir = gr.Textbox(label="训练集路径", placeholder="图片和同名 .txt 描述文件所在文件夹")
                         output_name = gr.Textbox(label="输出名称", value="my_lora")
-                        pretrained_model = gr.Textbox(label="基础模型路径或名称", value="runwayml/stable-diffusion-v1-5")
+                        pretrained_model = gr.Textbox(label="基础模型路径或名称", value="models/anything-v5")
                         max_steps = gr.Number(label="训练步数", value=1000, precision=0)
                         learning_rate = gr.Number(label="学习率", value=1e-4)
-                        rank = gr.Slider(2, 32, value=4, step=1, label="LoRA rank")
+                        rank = gr.Slider(2, 32, value=8, step=1, label="LoRA rank")
                         resolution = gr.Slider(384, 768, value=512, step=64, label="训练分辨率")
                         with gr.Row():
                             preview_train_btn = gr.Button("训练前检查")

@@ -1,5 +1,9 @@
 venv/
 .venv/
+.test-venv/
+.uv-cache/
+.uv-python/
+.pytest-tmp*/
 __pycache__/
 *.pyc
 
