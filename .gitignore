@@ -9,7 +9,10 @@ __pycache__/
 
 # Downloaded model weights are large and must stay local.
 models/
-lora_output/
+lora_output/*
+!lora_output/my_lora/
+lora_output/my_lora/*
+!lora_output/my_lora/pytorch_lora_weights.safetensors
 
 # Private/local training data and generated artifacts.
 train_data/

@@ -192,6 +192,59 @@ masterpiece, best quality, 1girl, silver hair, blue eyes, fantasy mage girl, glo
 
 ## LoRA 训练数据集
 
+本仓库附带一个已经训练完成的动漫绘画风格 LoRA：
+
+- LoRA 名称：`my_lora`
+- 权重文件：[`lora_output/my_lora/pytorch_lora_weights.safetensors`](lora_output/my_lora/pytorch_lora_weights.safetensors)
+- 基础模型：`Anything v5`（Stable Diffusion 1.5 系列）
+- 训练分辨率：`512`
+- LoRA rank：`8`
+- 推荐推理权重：`0.6 - 0.9`，建议先使用 `0.8`
+- 适用方向：动漫人物、动漫头像和二次元插画风格
+
+### 训练集来源
+
+本次训练使用 Hugging Face 数据集
+[`tenshitenshi/my_train_data`](https://huggingface.co/datasets/tenshitenshi/my_train_data)
+中的 `1_qizhu` 子集。本项目不会把原始训练图片提交到 GitHub；需要复现训练时，
+请从上述 Hugging Face 页面获取数据集，并自行检查数据集页面标注的许可证、图片来源
+和使用限制。该数据集当前标记为 `other` 许可证，不应在未确认授权范围时用于商业用途。
+
+### 使用仓库附带的 LoRA
+
+1. 安装项目依赖并准备完整的 `Anything v5` Diffusers 基础模型。
+2. 确认权重位于：
+
+   ```text
+   lora_output/
+     my_lora/
+       pytorch_lora_weights.safetensors
+   ```
+
+3. 双击“启动工作台.bat”，完成检查后启动网页工作台。
+4. 进入“工作生成台”，在“LoRA”下拉框选择 `my_lora`。如果没有显示，点击“刷新 LoRA”。
+5. 将“LoRA 权重”先设置为 `0.8`，输入提示词后生成图片。
+6. 风格过强或人物细节失真时，将权重降低到 `0.5 - 0.7`；风格不明显时，可逐步提高到 `0.9 - 1.0`。
+
+推荐首次测试参数：
+
+```text
+基础模型：anything-v5
+LoRA：my_lora
+LoRA 权重：0.8
+尺寸：512 x 768
+采样步数：28
+提示词强度：7
+```
+
+推荐提示词：
+
+```text
+masterpiece, best quality, 1girl, anime portrait, detailed eyes, soft lighting
+```
+
+### 使用自己的训练集继续训练
+
 训练集文件夹建议这样放：
 
 ```text
@@ -203,6 +256,18 @@ train_data/
 ```
 
 每张图片必须有同名 `.txt` 描述文件。“训练前检查”会先检查这些问题，再给出命令预览。
+
+在网页的“LoRA 训练”页面中：
+
+1. 填写训练集文件夹路径。程序可以自动识别只有一个图片子目录的常见解压结构。
+2. 输出名称填写新的名称；不要覆盖希望保留的 LoRA。
+3. 基础模型填写 `models/anything-v5`。
+4. RTX 3060 6GB 建议使用分辨率 `512`、batch size `1`、rank `8`、学习率 `0.0001`。
+5. 首次先训练 `100 - 200` 步检查效果，再根据图片数量增加到 `1000` 步左右。
+6. 点击“训练前检查”，确认没有数据集或参数错误后再开始训练。
+
+训练期间不要同时进行本地图片生成；两者会争用显存。训练成功后，点击绘画页面的
+“刷新 LoRA”，即可在下拉框中选择新模型。
 
 ## 验证
 
